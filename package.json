@@ -1,0 +1,27 @@
+{
+  "name": "lol-client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "DoctaEnkoda",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "braces": "^2.3.2",
+    "chokidar": "^2.1.2",
+    "electron": "^4.0.7",
+    "fs-extra": "^7.0.1",
+    "got": "^9.6.0",
+    "jquery": "^3.3.1",
+    "js-yaml": "^3.13.1",
+    "lcu-connector": "github:Pupix/lcu-connector",
+    "node-cache": "^4.2.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4",
+    "ws": "^6.2.1",
+    "yaml": "^1.4.0",
+    "yml": "^1.0.0"
+  }
+}

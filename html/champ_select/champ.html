@@ -1,0 +1,458 @@
+<html>
+
+<head>
+    <title>Bienvenue dans la version 0.0.1 du client LoL pour tous les OS</title>
+    <link rel="stylesheet" href="../style.css">
+    <link href="../../cdn/Roboto.css" rel="stylesheet">
+    <link href="../../cdn/Patua+One.css" rel="stylesheet">
+    <link href="../../cdn/Open+Sans.css" rel="stylesheet">
+    <link href="../../cdn/EB+Garamond.css" rel="stylesheet">
+    <link href="../../cdn/Material+Icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        const { ipcRenderer } = require('electron');
+        const fs = require('fs');
+        var role = require('../../cdn/role.json');
+        ipcRenderer.send("websocket", "");
+        var championid = {
+            "keys": {
+                "266": "Aatrox",
+                "103": "Ahri",
+                "84": "Akali",
+                "12": "Alistar",
+                "32": "Amumu",
+                "34": "Anivia",
+                "1": "Annie",
+                "22": "Ashe",
+                "136": "AurelionSol",
+                "268": "Azir",
+                "432": "Bard",
+                "53": "Blitzcrank",
+                "63": "Brand",
+                "201": "Braum",
+                "51": "Caitlyn",
+                "164": "Camille",
+                "69": "Cassiopeia",
+                "31": "Chogath",
+                "42": "Corki",
+                "122": "Darius",
+                "131": "Diana",
+                "119": "Draven",
+                "36": "DrMundo",
+                "245": "Ekko",
+                "60": "Elise",
+                "28": "Evelynn",
+                "81": "Ezreal",
+                "9": "Fiddlesticks",
+                "114": "Fiora",
+                "105": "Fizz",
+                "3": "Galio",
+                "41": "Gangplank",
+                "86": "Garen",
+                "150": "Gnar",
+                "79": "Gragas",
+                "104": "Graves",
+                "120": "Hecarim",
+                "74": "Heimerdinger",
+                "420": "Illaoi",
+                "39": "Irelia",
+                "427": "Ivern",
+                "40": "Janna",
+                "59": "JarvanIV",
+                "24": "Jax",
+                "126": "Jayce",
+                "202": "Jhin",
+                "222": "Jinx",
+                "145": "Kaisa",
+                "429": "Kalista",
+                "43": "Karma",
+                "30": "Karthus",
+                "38": "Kassadin",
+                "55": "Katarina",
+                "10": "Kayle",
+                "141": "Kayn",
+                "85": "Kennen",
+                "121": "Khazix",
+                "203": "Kindred",
+                "240": "Kled",
+                "96": "KogMaw",
+                "7": "Leblanc",
+                "64": "LeeSin",
+                "89": "Leona",
+                "127": "Lissandra",
+                "236": "Lucian",
+                "117": "Lulu",
+                "99": "Lux",
+                "54": "Malphite",
+                "90": "Malzahar",
+                "57": "Maokai",
+                "11": "MasterYi",
+                "21": "MissFortune",
+                "62": "MonkeyKing",
+                "82": "Mordekaiser",
+                "25": "Morgana",
+                "267": "Nami",
+                "75": "Nasus",
+                "111": "Nautilus",
+                "518": "Neeko",
+                "76": "Nidalee",
+                "56": "Nocturne",
+                "20": "Nunu",
+                "2": "Olaf",
+                "61": "Orianna",
+                "516": "Ornn",
+                "80": "Pantheon",
+                "78": "Poppy",
+                "555": "Pyke",
+                "133": "Quinn",
+                "497": "Rakan",
+                "33": "Rammus",
+                "421": "RekSai",
+                "58": "Renekton",
+                "107": "Rengar",
+                "92": "Riven",
+                "68": "Rumble",
+                "13": "Ryze",
+                "113": "Sejuani",
+                "35": "Shaco",
+                "98": "Shen",
+                "102": "Shyvana",
+                "27": "Singed",
+                "14": "Sion",
+                "15": "Sivir",
+                "72": "Skarner",
+                "37": "Sona",
+                "16": "Soraka",
+                "50": "Swain",
+                "517": "Sylas",
+                "134": "Syndra",
+                "223": "TahmKench",
+                "163": "Taliyah",
+                "91": "Talon",
+                "44": "Taric",
+                "17": "Teemo",
+                "412": "Thresh",
+                "18": "Tristana",
+                "48": "Trundle",
+                "23": "Tryndamere",
+                "4": "TwistedFate",
+                "29": "Twitch",
+                "77": "Udyr",
+                "6": "Urgot",
+                "110": "Varus",
+                "67": "Vayne",
+                "45": "Veigar",
+                "161": "Velkoz",
+                "254": "Vi",
+                "112": "Viktor",
+                "8": "Vladimir",
+                "106": "Volibear",
+                "19": "Warwick",
+                "498": "Xayah",
+                "101": "Xerath",
+                "5": "XinZhao",
+                "157": "Yasuo",
+                "83": "Yorick",
+                "154": "Zac",
+                "238": "Zed",
+                "115": "Ziggs",
+                "26": "Zilean",
+                "142": "Zoe",
+                "143": "Zyra"
+            }
+        }
+        var spellid = [{ "id": 1, "name": "Cleanse", "description": "Removes all disables (excluding suppression and airborne) and summoner spell debuffs affecting your champion and lowers the duration of incoming disables by 65% for 3 seconds.", "summonerLevel": 9, "cooldown": 210, "gameModes": ["CLASSIC", "ODIN", "TUTORIAL", "ARAM", "ASCENSION", "FIRSTBLOOD", "URF", "ARSR", "DOOMBOTSTEEMO", "PROJECT", "ONEFORALL"], "iconPath": "Summoner_boost.png" }, { "id": 3, "name": "Exhaust", "description": "Exhausts target enemy champion, reducing their Movement Speed by 30%, and their damage dealt by 40% for 2.5 seconds.", "summonerLevel": 4, "cooldown": 210, "gameModes": ["CLASSIC", "ODIN", "TUTORIAL", "ARAM", "ASCENSION", "FIRSTBLOOD", "URF", "ARSR", "DOOMBOTSTEEMO", "ONEFORALL"], "iconPath": "Summoner_exhaust.png" }, { "id": 4, "name": "Flash", "description": "Teleports your champion a short distance toward your cursor's location.", "summonerLevel": 7, "cooldown": 300, "gameModes": ["CLASSIC", "ODIN", "TUTORIAL", "ARAM", "ASCENSION", "FIRSTBLOOD", "ASSASSINATE", "URF", "ARSR", "DOOMBOTSTEEMO", "STARGUARDIAN", "PROJECT", "SNOWURF", "ONEFORALL"], "iconPath": "Summoner_flash.png" }, { "id": 6, "name": "Ghost", "description": "Your champion gains increased Movement Speed and can move through units for 10 seconds. Grants a maximum of 28-45% (depending on champion level) Movement Speed after accelerating for 2 seconds.", "summonerLevel": 1, "cooldown": 180, "gameModes": ["CLASSIC", "ODIN", "TUTORIAL", "ARAM", "ASCENSION", "FIRSTBLOOD", "ASSASSINATE", "URF", "ARSR", "DOOMBOTSTEEMO", "STARGUARDIAN", "PROJECT", "ONEFORALL"], "iconPath": "Summoner_haste.png" }, { "id": 7, "name": "Heal", "description": "Restores 90-345 Health (depending on champion level) and grants 30% Movement Speed for 1 second to you and target allied champion. This healing is halved for units recently affected by Summoner Heal.", "summonerLevel": 1, "cooldown": 240, "gameModes": ["CLASSIC", "ODIN", "TUTORIAL", "ARAM", "ASCENSION", "FIRSTBLOOD", "ASSASSINATE", "URF", "ARSR", "DOOMBOTSTEEMO", "STARGUARDIAN", "PROJECT", "ONEFORALL"], "iconPath": "Summoner_heal.png" }, { "id": 11, "name": "Smite", "description": "Deals 390-1000 true damage (depending on champion level) to target epic, large, or medium monster or enemy minion. Restores Health based on your maximum life when used against monsters.", "summonerLevel": 9, "cooldown": 15, "gameModes": ["CLASSIC", "TUTORIAL", "FIRSTBLOOD", "URF", "ARSR", "DOOMBOTSTEEMO", "ONEFORALL"], "iconPath": "Summoner_smite.png" }, { "id": 12, "name": "Teleport", "description": "After channeling for 4.5 seconds, teleports your champion to target allied structure, minion, or ward.", "summonerLevel": 7, "cooldown": 300, "gameModes": ["CLASSIC", "TUTORIAL", "ASSASSINATE", "URF", "ARSR", "DOOMBOTSTEEMO", "ONEFORALL"], "iconPath": "Summoner_teleport.png" }, { "id": 13, "name": "Clarity", "description": "Restores 50% of your champion's maximum Mana. Also restores allies for 25% of their maximum Mana.", "summonerLevel": 6, "cooldown": 240, "gameModes": ["ODIN", "ARAM", "ASCENSION"], "iconPath": "SummonerMana.png" }, { "id": 14, "name": "Ignite", "description": "Ignites target enemy champion, dealing 70-410 true damage (depending on champion level) over 5 seconds, grants you vision of the target, and reduces healing effects on them for the duration.", "summonerLevel": 9, "cooldown": 210, "gameModes": ["CLASSIC", "ODIN", "TUTORIAL", "ARAM", "ASCENSION", "FIRSTBLOOD", "ASSASSINATE", "URF", "ARSR", "DOOMBOTSTEEMO", "ONEFORALL"], "iconPath": "SummonerIgnite.png" }, { "id": 21, "name": "Barrier", "description": "Shields your champion from 115-455 damage (depending on champion level) for 2 seconds.", "summonerLevel": 4, "cooldown": 180, "gameModes": ["ARAM", "CLASSIC", "TUTORIAL", "ODIN", "ASCENSION", "FIRSTBLOOD", "ASSASSINATE", "URF", "ARSR", "DOOMBOTSTEEMO", "STARGUARDIAN", "PROJECT", "ONEFORALL"], "iconPath": "SummonerBarrier.png" }, { "id": 30, "name": "To the King!", "description": "Quickly travel to the Poro King's side.", "summonerLevel": 1, "cooldown": 10, "gameModes": ["KINGPORO"], "iconPath": "Benevolence_Of_King_Poro_Icon.png" }, { "id": 31, "name": "Poro Toss", "description": "Toss a Poro at your enemies. If it hits, you can quickly travel to your target as a follow up.", "summonerLevel": 1, "cooldown": 20, "gameModes": ["KINGPORO"], "iconPath": "Trailblazer_Poro_Icon.png" }, { "id": 32, "name": "Mark", "description": "Throw a snowball in a straight line at your enemies. If it hits an enemy, they become marked, granting True Sight, and your champion can quickly travel to the marked target as a follow up.", "summonerLevel": 6, "cooldown": 80, "gameModes": ["ARAM", "FIRSTBLOOD"], "iconPath": "Summoner_Mark.png" }, { "id": 33, "name": "Nexus Siege: Siege Weapon Slot", "description": "In Nexus Siege, Summoner Spells are replaced with Siege Weapon Slots. Spend Crystal Shards to buy single-use Siege Weapons from the item shop, then use your Summoner Spell keys to activate them!", "summonerLevel": 1, "cooldown": 0, "gameModes": ["SIEGE"], "iconPath": "SiegeEmptySlot.png" }, { "id": 34, "name": "Nexus Siege: Siege Weapon Slot", "description": "In Nexus Siege, Summoner Spells are replaced with Siege Weapon Slots. Spend Crystal Shards to buy single-use Siege Weapons from the item shop, then use your Summoner Spell keys to activate them!", "summonerLevel": 1, "cooldown": 0, "gameModes": ["SIEGE"], "iconPath": "SiegeEmptySlot.png" }, { "id": 35, "name": "Disabled Summoner Spells", "description": "Summoner spells are disabled in this mode.", "summonerLevel": 1, "cooldown": 0, "gameModes": ["DARKSTAR"], "iconPath": "Summoner_Empty.png" }, { "id": 36, "name": "Disabled Summoner Spells", "description": "Summoner spells are disabled in this mode.", "summonerLevel": 1, "cooldown": 0, "gameModes": ["DARKSTAR"], "iconPath": "Summoner_Empty.png" }, { "id": 39, "name": "Ultra (Rapidly Flung) Mark", "description": "It's a snowball! It's a Poro! It's...uh...one of those.", "summonerLevel": 6, "cooldown": 80, "gameModes": ["SNOWURF"], "iconPath": "Summoner_Mark.png" }];
+        // Update
+        ipcRenderer.on("champselect_update", function (event, myresult) {
+            console.log(myresult)
+            if (myresult.data) {
+                var result = myresult;
+                var myTeam = result.data.myTeam;
+                var blueteam = "";
+                var background;
+                for (var i in myTeam) {
+                    if (myTeam[i].championId === 0) {
+                        background = "#696969";
+                    } else {
+                        background = `url(https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes/${myTeam[i].championId}/${myTeam[i].selectedSkinId}.jpg)`;
+                    }
+                    blueteam += `
+                        <div id="summoner select${i}" style="
+                            min-width: 300px;
+                            min-height: 125px;
+                            background: ${background};
+                            max-height: 125px;
+                            max-width: 300px;
+                            background-position-x: center;
+                            background-position-y: -50px;
+                            background-repeat: no-repeat;
+                            background-size: 230% 230%;
+                        ">
+                            <div id="position">${myTeam[i].assignedPosition}</div>
+                            <div id="spell">
+                                <div id="spell1Id">
+                                    <img src="http://raw.communitydragon.org/latest/game/data/spells/icons2d/${(spellid.find(r => r.id === myTeam[i].spell1Id).iconPath).toLowerCase()}" height="50px">
+                                </div>
+                                <div id="spell2Id">
+                                    <img src="http://raw.communitydragon.org/latest/game/data/spells/icons2d/${(spellid.find(r => r.id === myTeam[i].spell2Id).iconPath).toLowerCase()}" height="50px">
+                                </div>
+                            </div>
+                            <div id="summonerName">
+                                <div style="float: right;">${myTeam[i].summonerId}</div>    
+                            </div>
+                        </div>
+                    `
+                }
+                document.getElementById("pick").innerHTML = blueteam;
+            }
+        });
+        // Delete
+        ipcRenderer.on("champselect_delete", function (event, result) {
+            if (result) document.location.href = __dirname + '/../index.html';
+        });
+
+
+
+    </script>
+
+    <style>
+        button {
+            padding: 0 0;
+        }
+
+        #pick,
+        #ennemy {
+            min-width: 300px;
+        }
+
+        .champion-thumbnail {
+            position: relative;
+            background-position: center;
+            background-size: 77px;
+            background-repeat: no-repeat;
+        }
+
+        .champion {
+            width: 11.1111%;
+            margin-bottom: 18px;
+        }
+
+        .champion-grid {
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: flex-start;
+            margin: 0;
+            height: 350px;
+            -webkit-mask-image: linear-gradient(to top, transparent 0%, transparent 0px, #000 50px);
+        }
+
+        .scroll {
+            overflow-y: scroll !important;
+        }
+
+        #selectchamp {
+            margin-left: 20px;
+        }
+
+        .content {
+            display: flex;
+        }
+
+        .filterDiv {
+            float: left;
+            color: #ffffff;
+            width: 100px;
+            line-height: 50px;
+            text-align: center;
+            margin: 2px;
+            display: none;
+        }
+
+        .show {
+            display: block;
+        }
+
+        input.btn.btn-block {
+            position: relative;
+            font-family: 'Beaufort' !important;
+            text-transform: uppercase;
+            color: #CDBE91;
+            font-weight: 100;
+            letter-spacing: 1px;
+            white-space: nowrap;
+            padding: 9px 21px;
+            cursor: pointer;
+            box-shadow: 0 0 1px 1px #010A13, inset 0 0 1px 1px #010A13;
+            background: #1E2328;
+            border: 2px solid transparent;
+            border-image: linear-gradient(to top, #785B28 0%, #C89C3C 55%, #C8A355 71%, #C8AA6E 100%);
+            border-image-slice: 1;
+            transition: opacity 300ms linear;
+            margin-top: 5px;
+            transition: color 100ms linear;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <!-- END SECTIONS -->
+        <div id="pick">
+
+        </div>
+        <div id="selectchamp">
+            <div id="allchamp">
+                <div class="champion-grid--controls_inner" style="display: inline-flex">
+                    <div class="champion-grid--filters">
+                        <div class="filter-button-group filter-button-group--playstyle" data-filter-group="playstyle">
+                            <button class="filter-button is-checked" data-filter=".top" title="Top"
+                                onclick="filterSelection('top')">
+                                <img src="../../cdn/Top_icon.png" height="27" width="27">
+                            </button>
+                            <button class="filter-button" data-filter=".jungle" title="Jungle"
+                                onclick="filterSelection('jungle')">
+                                <img src="../../cdn/Jungle_icon.png" height="27" width="27">
+                            </button>
+                            <button class="filter-button" data-filter=".middle" title="Middle"
+                                onclick="filterSelection('middle')">
+                                <img src="../../cdn/Middle_icon.png" height="27" width="27">
+                            </button>
+                            <button class="filter-button" data-filter=".bottom" title="Bottom"
+                                onclick="filterSelection('bottom')">
+                                <img src="../../cdn/Bottom_icon.png" height="27" width="27">
+                            </button>
+                            <button class="filter-button" data-filter=".support" title="Support"
+                                onclick="filterSelection('support')">
+                                <img src="../../cdn/Support_icon.png" height="27" width="27">
+                            </button>
+                            <span class="filter-divide"></span>
+                            <!-- <button class="filter-button filter-button--free" data-filter=".free" title="Free Rotation">
+                                                      <svg class="filter-button--icon" height="25" width="25"><use xlink:href="#icon-lock"></svg>
+                                                    </button> -->
+                        </div>
+                    </div>
+                    <div class="champion-grid--title">
+                        <h5 style="color: #ffffff;">Selectionne un champion</h5>
+                    </div>
+                    <div class="champion-grid--search">
+                        <input type="text" class="quicksearch" placeholder="Search for a champion" autofocus="">
+                        <button type="button" class="quicksearch-reset"></button>
+                    </div>
+                </div>
+                <br><br>
+                <div class="champion-grid">
+                    <form>
+                        <u1 id="champion-grid-scroll" class="champion-grid list scroll" style="position:relative;">
+
+                        </u1>
+                </div>
+
+                <input type="button" value="VEROUILLER" class="btn btn-block" style="
+                         margin: 0 auto;
+                         width: 250px;
+                        " onclick="verouiller()"><br>
+                </form>
+
+
+            </div>
+            <div id="chat_ig"></div>
+        </div>
+        <div id="ennemy">
+
+        </div>
+        <div class="info_lol">
+            <p class="info_lol-tag" id="info_lol-tag">Ce Client n'a pas été crée par RiotGames. Le créateur décline
+                toute responsabilité en cas de suspension de compte ou utilisation autre que celui destiné sur le
+                client ! RiotGames est une marque déposé.</p>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.0.0.js"></script>
+    <script src="https://feeders.fr/vendor/jquery/jquery.min.js"></script>
+    <script src="https://feeders.fr/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
+
+        function filterSelection(c) {
+            var x, i;
+            x = document.getElementsByClassName("filterDiv");
+            if (c == "all") c = "";
+            for (var i in x) {
+                w3RemoveClass(x[i], "show");
+                if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+            }
+        }
+
+        function w3AddClass(element, name) {
+            var i, arr1, arr2;
+            arr1 = element.className.split(" ");
+            arr2 = name.split(" ");
+            for (var i in arr2) {
+                if (arr1.indexOf(arr2[i]) == -1) { element.className += " " + arr2[i]; }
+            }
+        }
+
+        function w3RemoveClass(element, name) {
+            var i, arr1, arr2;
+            arr1 = element.className.split(" ");
+            arr2 = name.split(" ");
+            for (var i in arr2) {
+                while (arr1.indexOf(arr2[i]) > -1) {
+                    arr1.splice(arr1.indexOf(arr2[i]), 1);
+                }
+            }
+            element.className = arr1.join(" ");
+        }
+
+
+
+        var selection;
+
+        function select(evt) {
+            return selection = evt;
+        }
+
+        function verouiller() {
+            if (!selection) return alert("Merci de choisir un champion");
+            console.log(selection);
+            ipcRenderer.send("lock_champ_legacy", selection)
+        }
+
+        ipcRenderer.on("picked", function (event, myresult) {
+            if (!myresult) return alert("Une erreur s'est produite");
+        })
+
+        ipcRenderer.on("locked", function (event, myresult) {
+            if (!myresult) return alert("Une erreur s'est produite");
+        })
+
+        //Choose champ
+        ipcRenderer.on("pickable_champions", function (event, result) {
+            var html = "";
+            console.log(result)
+            if (result.data) {
+                var championIds = result.data.championIds;
+                for (var i in championIds) {
+                    html += `
+                    <li class="champion filterDiv ${(role.find(r => r.loadout_champion_name === championid.keys[championIds[i]]) || { loadout_position_name: 'Aucune' }).loadout_position_name}" data-champion-full="Aatrox" data-champion-clean="Aatrox" style="" onclick=select(${championIds[i]})>                            
+                        <div class="champion-modal-open">
+                                <div class="champion-thumbnail-frame">
+                                    <div class="champion-thumbnail lazy" style="background-image: url(https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-icons/${championIds[i]}.png);">
+                                        <img src="https://d181w3hxxigzvh.cloudfront.net/wp-content/themes/rune_forge/imgs/1px-transparent.png" height="70" width="70">
+                                    </div>
+                                </div>
+                                <span class="champion-name">${championid.keys[championIds[i]]}</span>
+                            </div>
+                    </li>
+                    `
+                }
+                document.getElementById("champion-grid-scroll").innerHTML = html;
+                filterSelection("all")
+            }
+        });
+
+    </script>
+</body>
+
+</html>
