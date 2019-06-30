@@ -34,7 +34,7 @@ class LCUConnector {
     getLCULockFile() {
         return new Promise((resolve, reject) =>{
             this.getLCUPathFromProcess().then(chemin =>{
-                var lock = fs.readFileSync(chemin + "lockfile", { encoding: "utf8" });
+                var lock = fs.readFileSync(chemin + "/lockfile", { encoding: "utf8" });
                 var array = lock.split(':');
                 return resolve({
                     protocol: array[4],
