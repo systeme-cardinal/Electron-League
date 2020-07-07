@@ -11,7 +11,7 @@
   "dependencies": {
     "braces": "^2.3.2",
     "chokidar": "^2.1.2",
-    "electron": "^4.0.7",
+    "electron": "^7.2.4",
     "fs-extra": "^7.0.1",
     "got": "^9.6.0",
     "jquery": ">=3.4.0",
